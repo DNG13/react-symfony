@@ -20,12 +20,18 @@ export default class RepLogApp extends Component {
         this.setState({highlightedRowId: repLogId});
     }
 
+    handlerNewItemSubmit(itemName, reps){
+        console.log('TO-Do handler');
+        console.log(itemName, reps)
+    }
+
     render() {
         return (
             <RepLogs
                 {...this.props}
                 {...this.state}
                 onRowClick={this.handlerRowClick}
+                onNewItemSubmit={this.handlerNewItemSubmit}
             />);
     }
 }
