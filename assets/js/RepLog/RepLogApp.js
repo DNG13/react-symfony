@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import RepLogs from "./RepLogs";
+import PropTypes from "prop-types"
+import RepLogList from "./RepLogList";
 
 export default class RepLogApp extends Component {
     constructor(props) {
@@ -25,4 +27,8 @@ export default class RepLogApp extends Component {
                 onRowClick={this.handlerRowClick}
             />);
     }
+}
+
+RepLogApp.propTypes = {
+    withHeart : PropTypes.bool
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import RepLogList from "./RepLogList";
+import PropTypes from "prop-types"
+import RepLogApp from "./RepLogApp";
 
 export default function RepLogs(props) {
     const {withHeart, highlightedRowId, onRowClick} = props;
@@ -64,4 +66,9 @@ export default function RepLogs(props) {
             </form>
         </div>
     );
+}
+RepLogs.propTypes = {
+    withHeart : PropTypes.bool,
+    highlightedRowId : PropTypes.any,
+    onRowClick : PropTypes.func.isRequired
 }
