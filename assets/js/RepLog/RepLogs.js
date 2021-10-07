@@ -1,10 +1,23 @@
 import React from "react";
 import RepLogList from "./RepLogList";
 import PropTypes from "prop-types"
-import RepLogApp from "./RepLogApp";
+
+
+function calculateTotalWeightLifted(repLogs) {
+    let total = 0;
+    for (let repLog of repLogs) {
+        total += repLog.totalWeightLifted;
+    }
+
+    return total;
+}
+
+//alternative syntax to calculateTotalWeightLifted
+const calculateTotalWeightFancier = repLogs => repLogs.reduce((total, log) => total + log.totalWeightLifted, 0);
+
 
 export default function RepLogs(props) {
-    const {withHeart, highlightedRowId, onRowClick} = props;
+    const {withHeart, highlightedRowId, onRowClick, repLogs} = props;
     let heart = '';
     if (withHeart) {
         heart = <span>💞</span>;
@@ -24,12 +37,13 @@ export default function RepLogs(props) {
                 <RepLogList
                     highlightedRowId={highlightedRowId}
                     onRowClick={onRowClick}
+                    repLogs={repLogs}
                 />
                 <tfoot>
                 <tr>
                     <td>&nbsp;</td>
                     <th>Total</th>
-                    <th>TODO</th>
+                    <th>{calculateTotalWeightFancier(repLogs)}</th>
                     <td>&nbsp;</td>
                 </tr>
                 </tfoot>
@@ -68,7 +82,8 @@ export default function RepLogs(props) {
     );
 }
 RepLogs.propTypes = {
-    withHeart : PropTypes.bool,
-    highlightedRowId : PropTypes.any,
-    onRowClick : PropTypes.func.isRequired
+    withHeart: PropTypes.bool,
+    highlightedRowId: PropTypes.any,
+    onRowClick: PropTypes.func.isRequired,
+    repLogs: PropTypes.array.isRequired
 }
