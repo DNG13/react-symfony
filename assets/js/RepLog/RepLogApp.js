@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import RepLogs from "./RepLogs";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import { v4 as uuidv } from 'uuid';
 
 export default class RepLogApp extends Component {
     constructor(props) {
@@ -14,15 +15,24 @@ export default class RepLogApp extends Component {
             ]
         }
         this.handlerRowClick = this.handlerRowClick.bind(this);
+        this.handlerNewItemSubmit = this.handlerNewItemSubmit.bind(this);
     }
 
     handlerRowClick(repLogId) {
         this.setState({highlightedRowId: repLogId});
     }
 
-    handlerNewItemSubmit(itemName, reps){
-        console.log('TO-Do handler');
-        console.log(itemName, reps)
+    handlerNewItemSubmit(itemLabel, reps){
+        const repLogs = this.state.repLogs;
+        const newRep =  {
+            id: uuidv(),
+            reps: reps,
+            itemLabel: itemLabel,
+            totalWeightLifted:  Math.floor(Math.random() * 50)
+        }
+
+        repLogs.push(newRep);
+        this.setState({repLogs:repLogs});
     }
 
     render() {
