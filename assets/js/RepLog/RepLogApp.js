@@ -15,16 +15,17 @@ export default class RepLogApp extends Component {
             ],
             numberOfHearts: 1,
         }
-        this.handlerRowClick = this.handlerRowClick.bind(this);
-        this.handlerAddRepLog = this.handlerAddRepLog.bind(this);
-        this.handlerHeartChange = this.handlerHeartChange.bind(this);
+        this.handleRowClick = this.handleRowClick.bind(this);
+        this.handleAddRepLog = this.handleAddRepLog.bind(this);
+        this.handleHeartChange = this.handleHeartChange.bind(this);
+        this.handleDeleteRepLog = this.handleDeleteRepLog.bind(this);
     }
 
-    handlerRowClick(repLogId) {
+    handleRowClick(repLogId) {
         this.setState({highlightedRowId: repLogId});
     }
 
-    handlerAddRepLog(itemLabel, reps) {
+    handleAddRepLog(itemLabel, reps) {
 
         const newRep = {
             id: uuidv(),
@@ -38,19 +39,31 @@ export default class RepLogApp extends Component {
         });
     }
 
-    handlerHeartChange(heartCount){
+    handleHeartChange(heartCount) {
         this.setState({
             numberOfHearts: heartCount
         })
     }
+    
+    handleDeleteRepLog(id) {
+        // remove the rep log without mutating state
+        // filter returns a new array
+        this.setState((prevState) => {
+            return{
+                repLogs: prevState.state.repLogs.filter(repLog => repLog.id !== id)
+            }
+        });
+    }
+
     render() {
         return (
             <RepLogs
                 {...this.props}
                 {...this.state}
-                onRowClick={this.handlerRowClick}
-                onAddRepLog={this.handlerAddRepLog}
-                onHeartChange={this.handlerHeartChange}
+                onRowClick={this.handleRowClick}
+                onAddRepLog={this.handleAddRepLog}
+                onHeartChange={this.handleHeartChange}
+                onDeleteRepLog={this.handleDeleteRepLog}
             />);
     }
 }

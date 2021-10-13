@@ -19,8 +19,8 @@ export default class RepLogCreator extends Component {
         ];
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handlerSelectItemChange = this.handlerSelectItemChange.bind(this);
-        this.handlerQuantityInputChange = this.handlerQuantityInputChange.bind(this);
+        this.handleSelectItemChange = this.handleSelectItemChange.bind(this);
+        this.handleQuantityInputChange = this.handleQuantityInputChange.bind(this);
     }
 
     handleFormSubmit(event) {
@@ -53,13 +53,13 @@ export default class RepLogCreator extends Component {
         });
     }
 
-    handlerSelectItemChange(event) {
+    handleSelectItemChange(event) {
         this.setState({
             selectedItemId: event.target.value
         })
     }
 
-    handlerQuantityInputChange(event) {
+    handleQuantityInputChange(event) {
         this.setState({
             quantityValue: event.target.value
         })
@@ -76,7 +76,7 @@ export default class RepLogCreator extends Component {
                     </label>
                     <select id="rep_log_item"
                             value={selectedItemId}
-                            onChange={this.handlerSelectItemChange}
+                            onChange={this.handleSelectItemChange}
                             required="required"
                             className="form-control">
                         <option value="">What did you lift?</option>
@@ -92,7 +92,7 @@ export default class RepLogCreator extends Component {
                     </label>
                     <input type="number" id="rep_log_reps"
                            value={quantityValue}
-                           onChange={this.handlerQuantityInputChange}
+                           onChange={this.handleQuantityInputChange}
                            required="required"
                            placeholder="How many times?"
                            className="form-control"/>
