@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import RepLogs from "./RepLogs";
 import PropTypes from "prop-types";
-import { v4 as uuidv } from 'uuid';
+import {v4 as uuidv} from 'uuid';
 
 export default class RepLogApp extends Component {
     constructor(props) {
@@ -12,36 +12,45 @@ export default class RepLogApp extends Component {
                 {id: 1, reps: 25, itemLabel: 'My Laptop', totalWeightLifted: 112.5},
                 {id: 2, reps: 10, itemLabel: 'Big Fat Cat', totalWeightLifted: 180},
                 {id: 8, reps: 4, itemLabel: 'Big Fat Cat', totalWeightLifted: 72}
-            ]
+            ],
+            numberOfHearts: 1,
         }
         this.handlerRowClick = this.handlerRowClick.bind(this);
-        this.handlerNewItemSubmit = this.handlerNewItemSubmit.bind(this);
+        this.handlerAddRepLog = this.handlerAddRepLog.bind(this);
+        this.handlerHeartChange = this.handlerHeartChange.bind(this);
     }
 
     handlerRowClick(repLogId) {
         this.setState({highlightedRowId: repLogId});
     }
 
-    handlerNewItemSubmit(itemLabel, reps){
-        const repLogs = this.state.repLogs;
-        const newRep =  {
+    handlerAddRepLog(itemLabel, reps) {
+
+        const newRep = {
             id: uuidv(),
             reps: reps,
             itemLabel: itemLabel,
-            totalWeightLifted:  Math.floor(Math.random() * 50)
+            totalWeightLifted: Math.floor(Math.random() * 50)
         }
-
-        repLogs.push(newRep);
-        this.setState({repLogs:repLogs});
+        this.setState(prevState => {
+            const newRepLogs = [...prevState.repLogs, newRep];
+            return {repLogs: newRepLogs};
+        });
     }
 
+    handlerHeartChange(heartCount){
+        this.setState({
+            numberOfHearts: heartCount
+        })
+    }
     render() {
         return (
             <RepLogs
                 {...this.props}
                 {...this.state}
                 onRowClick={this.handlerRowClick}
-                onNewItemSubmit={this.handlerNewItemSubmit}
+                onAddRepLog={this.handlerAddRepLog}
+                onHeartChange={this.handlerHeartChange}
             />);
     }
 }
