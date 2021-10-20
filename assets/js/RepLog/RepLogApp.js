@@ -1,24 +1,31 @@
 import React, {Component} from "react";
 import RepLogs from "./RepLogs";
 import PropTypes from "prop-types";
-import {v4 as uuidv} from 'uuid';
+import {v4 as uuid} from 'uuid';
+import {getRepLogs} from '../api/rep_log_api';
 
 export default class RepLogApp extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             highlightedRowId: null,
-            repLogs: [
-                {id: 1, reps: 25, itemLabel: 'My Laptop', totalWeightLifted: 112.5},
-                {id: 2, reps: 10, itemLabel: 'Big Fat Cat', totalWeightLifted: 180},
-                {id: 8, reps: 4, itemLabel: 'Big Fat Cat', totalWeightLifted: 72}
-            ],
+            repLogs: [],
             numberOfHearts: 1,
         }
         this.handleRowClick = this.handleRowClick.bind(this);
         this.handleAddRepLog = this.handleAddRepLog.bind(this);
         this.handleHeartChange = this.handleHeartChange.bind(this);
         this.handleDeleteRepLog = this.handleDeleteRepLog.bind(this);
+    }
+
+    componentDidMount() {
+        getRepLogs()
+            .then((data) => {
+                this.setState({
+                    repLogs: data
+                })
+            });
     }
 
     handleRowClick(repLogId) {
@@ -28,7 +35,7 @@ export default class RepLogApp extends Component {
     handleAddRepLog(itemLabel, reps) {
 
         const newRep = {
-            id: uuidv(),
+            id: uuid(),
             reps: reps,
             itemLabel: itemLabel,
             totalWeightLifted: Math.floor(Math.random() * 50)
@@ -44,13 +51,13 @@ export default class RepLogApp extends Component {
             numberOfHearts: heartCount
         })
     }
-    
+
     handleDeleteRepLog(id) {
-        // remove the rep log without mutating state
+        // remove the repo log without mutating state
         // filter returns a new array
         this.setState((prevState) => {
-            return{
-                repLogs: prevState.state.repLogs.filter(repLog => repLog.id !== id)
+            return {
+                repLogs: prevState.repLogs.filter(repLog => repLog.id !== id)
             }
         });
     }

@@ -20,7 +20,7 @@ export default function RepLogList(props) {
                 <td>{repLog.reps}</td>
                 <td>{repLog.totalWeightLifted}</td>
                 <td>
-                    <a href="#" onClick={(event => handleDeleteClick(event, repLog.id))}>
+                    <a href="#" onClick={(event) => handleDeleteClick(event, repLog.id)}>
                         <span className="fa fa-trash"></span>
                     </a>
                 </td>
