@@ -11,7 +11,9 @@ export default class RepLogApp extends Component {
             highlightedRowId: null,
             repLogs: [],
             numberOfHearts: 1,
-            isLoaded: false
+            isLoaded: false,
+            isSavingNewRepLog: false,
+            successMessage: ''
         }
         this.handleRowClick = this.handleRowClick.bind(this);
         this.handleAddRepLog = this.handleAddRepLog.bind(this);
@@ -38,11 +40,18 @@ export default class RepLogApp extends Component {
             reps: reps,
             item: item,
         }
+        this.setState({
+            isSavingNewRepLog: true
+        })
         createRepLog(newRep)
             .then(repLog => {
                 this.setState(prevState => {
                     const newRepLogs = [...prevState.repLogs, repLog];
-                    return {repLogs: newRepLogs};
+                    return {
+                        repLogs: newRepLogs,
+                        isSavingNewRepLog: false,
+                        successMessage: 'Rep log saved.'
+                    };
                 });
             })
     }
