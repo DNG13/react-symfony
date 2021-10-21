@@ -19,6 +19,20 @@ export default class RepLogCreator extends Component {
         ];
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleSelectItemChange = this.handleSelectItemChange.bind(this);
+        this.handleQuantityInputChange = this.handleQuantityInputChange.bind(this);
+    }
+
+    handleSelectItemChange(event) {
+        this.setState({
+            selectedItemId: event.target.value
+        })
+    }
+
+    handleQuantityInputChange(event) {
+        this.setState({
+            quantityValue: event.target.value
+        })
     }
 
     handleFormSubmit(event) {
@@ -33,10 +47,9 @@ export default class RepLogCreator extends Component {
             //don`t submit, or clear te form
             return;
         }
-        console.log(quantityInput.value);
 
         onAddRepLog(
-            itemSelect.options[itemSelect.selectedIndex].text,
+            itemSelect.options[itemSelect.selectedIndex].value,
             quantityInput.value
         );
         quantityInput.value = '';

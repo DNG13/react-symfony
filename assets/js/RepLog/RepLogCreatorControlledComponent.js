@@ -6,10 +6,10 @@ export default class RepLogCreator extends Component {
         super(props);
 
         this.state = {
-            selectedItemId: '',
-            quantityValue: 0,
-            quantityInputError: '',
+            quantityInputError: ''
         }
+        this.quantityInput = React.createRef();
+        this.itemSelect = React.createRef();
 
         this.itemOptions = [
             {id: 'cat', text: 'Cat'},
@@ -26,29 +26,24 @@ export default class RepLogCreator extends Component {
     handleFormSubmit(event) {
         event.preventDefault();
         const {onAddRepLog} = this.props;
-        const {selectedItemId, quantityValue} = this.state;
-
-        const itemLabel = this.itemOptions.find((option) => {
-            return option.id === selectedItemId
-        }).text;
-
-        if (quantityValue <= 0) {
+        const quantityInput = this.quantityInput.current;
+        const itemSelect = this.itemSelect.current;
+        if (quantityInput.value <= 0) {
             this.setState({
                 quantityInputError: 'Please enter a value greater than 0'
             });
             //don`t submit, or clear te form
             return;
         }
-        console.log(quantityValue);
+        console.log(quantityInput.value);
 
         onAddRepLog(
-            itemLabel,
-            quantityValue
+            itemSelect.options[itemSelect.selectedIndex].value,
+            quantityInput.value
         );
-
+        quantityInput.value = '';
+        itemSelect.selectedIndex = 0;
         this.setState({
-            selectedItemId: '',
-            quantityValue: 0,
             quantityInputError: ''
         });
     }
