@@ -57,7 +57,7 @@ export default class RepLogApp extends Component {
                         isSavingNewRepLog: false,
                     };
                 });
-                this.setSuccessMessage('Rep log saved.')
+                this.setSuccessMessage('Rep log saved.');
             });
     }
 
@@ -81,14 +81,28 @@ export default class RepLogApp extends Component {
     }
 
     handleDeleteRepLog(id) {
-        deleteRepLog(id);
-        // remove the repo log without mutating state
-        // filter returns a new array
         this.setState((prevState) => {
             return {
-                repLogs: prevState.repLogs.filter(repLog => repLog.id !== id)
+                repLogs: prevState.repLogs.map(repLog => {
+                    if (repLog.id !== id) {
+                        return repLog;
+                    }
+                    return Object.assign({}, repLog, {isDeleting: true});
+                })
             }
         });
+
+        deleteRepLog(id)
+            .then(() => {
+                // remove the repo log without mutating state
+                // filter returns a new array
+                this.setState((prevState) => {
+                    return {
+                        repLogs: prevState.repLogs.filter(repLog => repLog.id !== id)
+                    }
+                });
+                this.setSuccessMessage('Message was Un-lifted.');
+            });
     }
 
     render() {
