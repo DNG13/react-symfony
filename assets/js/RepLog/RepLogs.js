@@ -38,7 +38,7 @@ export default function RepLogs(props) {
     }
 
     return (
-        <div className="col-md-7">
+        <div>
             <h2>Lift History {heart} </h2>
             <input
                 type="range"
