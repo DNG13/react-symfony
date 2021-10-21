@@ -16,6 +16,7 @@ export default class RepLogCreator extends Component {
             {id: 'fat_cat', text: 'Big Fat Cat'},
             {id: 'laptop', text: 'My Laptop'},
             {id: 'coffee_cup', text: 'Coffee Cup'},
+            {id: 'invalid_item', text: 'Dark matter'}
         ];
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
