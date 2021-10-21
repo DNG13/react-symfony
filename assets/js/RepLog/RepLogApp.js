@@ -14,7 +14,9 @@ export default class RepLogApp extends Component {
             isLoaded: false,
             isSavingNewRepLog: false,
             successMessage: '',
-            newRepLogValidationErrorMessage: ''
+            newRepLogValidationErrorMessage: '',
+            // itemOptions: props.itemOptions,
+
         }
         this.successMessageTimeoutHandler = 0;
         this.handleRowClick = this.handleRowClick.bind(this);
@@ -139,4 +141,9 @@ export default class RepLogApp extends Component {
 
 RepLogApp.propTypes = {
     withHeart: PropTypes.bool,
-}
+    itemOptions: PropTypes.array,
+};
+
+RepLogApp.defaultProps = {
+    itemOptions: []
+};
