@@ -3,7 +3,6 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
     "@babel/preset-react": "^7.0.0",
     "@symfony/webpack-encore": "^0.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "3",
     "copy-webpack-plugin": "^4.4.1",
@@ -28,6 +27,7 @@
     "build": "encore production"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "promise-polyfill": "^8.2.0",
     "whatwg-fetch": "^3.6.2"
   }
